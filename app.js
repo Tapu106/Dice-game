@@ -6,10 +6,6 @@ score = [0, 0];
 roundScore = 0;
 activePlayer = 0;
 
-const activePlayerRoundScore = document.getElementById(
-  `current-${activePlayer}`
-);
-
 //chnaging css style using DOM
 diceBtn.style.display = "none";
 
@@ -24,14 +20,41 @@ document.querySelector(".btn-roll").addEventListener("click", () => {
   if (dice !== 1) {
     // current player score increases
     roundScore += dice;
-    activePlayerRoundScore.textContent = roundScore;
+    document.getElementById(`current-${activePlayer}`).textContent = roundScore;
   } else {
     // next player
-    activePlayer = activePlayer === 0 ? 1 : 0;
-    roundScore = 0;
-    document.getElementById(`current-0`).textContent = 0;
-    document.getElementById(`current-1`).textContent = 0;
-    
-    
+    turnToNextPlayer();
   }
 });
+
+// hold event
+
+document.querySelector(".btn-hold").addEventListener("click", () => {
+  score[activePlayer] += roundScore;
+  document.getElementById(`score-${activePlayer}`).textContent =
+    score[activePlayer];
+
+  if (score[activePlayer] >= 20) {
+    document.getElementById("name-" + activePlayer).textContent = "Winner!";
+    diceBtn.style.display = "none";
+    document
+      .querySelector(`.player-${activePlayer}-panel`)
+      .classList.add("winner");
+    document
+      .querySelector(`.player-${activePlayer}-panel`)
+      .classList.remove("active");
+  } else {
+    turnToNextPlayer();
+  }
+});
+
+turnToNextPlayer = () => {
+  activePlayer = activePlayer === 0 ? 1 : 0;
+  roundScore = 0;
+  document.getElementById(`current-0`).textContent = 0;
+  document.getElementById(`current-1`).textContent = 0;
+  document.querySelector(".player-0-panel").classList.toggle("active");
+  document.querySelector(".player-1-panel").classList.toggle("active");
+
+  diceBtn.style.display = "none";
+};
