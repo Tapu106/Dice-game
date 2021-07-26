@@ -2,7 +2,7 @@
 > A simple dice game built with vanilla javascript .
 
 ## How to play the game
- -  Just click [this link](https://tapu106.github.io/Dice-game/) and enjoy the game.
+ -  Just click [this link](https://tapu106.github.io/pig-game/) and enjoy the game.
 
 
 
